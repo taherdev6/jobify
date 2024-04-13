@@ -35,7 +35,7 @@ const updateUser = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(req.user.userId, newUser);
 
   if (req.file && updatedUser.avatarPublicId) {
-    await cloudinary.v2.uploader.destroy(updateUser.avatarPublicId);
+    await cloudinary.v2.uploader.destroy(updatedUser.avatarPublicId);
   }
 
   res.status(StatusCodes.OK).json({ msg: "user updated" });
