@@ -6,19 +6,21 @@ import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  try {
-    const res = await customFetch.post("/jobs", data);
-    const job = res.data.job;
-    toast.success("job created");
-    return redirect("all-jobs");
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return error;
-  }
-};
+export const action =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+      const res = await customFetch.post("/jobs", data);
+      queryClient.invalidateQueries(["jobs"]);
+      toast.success("job created");
+      return redirect("all-jobs");
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
 const AddJob = () => {
   const { user } = useOutletContext();
 

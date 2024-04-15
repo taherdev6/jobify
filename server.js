@@ -7,6 +7,10 @@ import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
 import cloudinary from "cloudinary";
 
+// security
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
+
 // routers
 import jobRouter from "./routes/jobRouter.js";
 import authRouter from "./routes/authRouter.js";
@@ -39,11 +43,9 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use(express.json());
 app.use(cookieParser());
+app.use(helmet());
+app.use(mongoSanitize());
 // routers
-
-app.get("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
 
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
