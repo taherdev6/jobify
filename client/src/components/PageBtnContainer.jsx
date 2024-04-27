@@ -66,10 +66,6 @@ const PageBtnContainer = () => {
     );
     return pageButtons;
   };
-  // const pageButtons = [...Array(numOfPages)].map((_, i) => {
-  //   return renderPageButton();
-  // });
-
   return (
     <Wrapper>
       <button
@@ -82,16 +78,7 @@ const PageBtnContainer = () => {
         <HiChevronDoubleLeft />
         prev
       </button>
-      <div className="btn-container">
-        {renderPageButton()}
-        {/* {currentPage - 2 > -1 && pageButtons[currentPage] - 2}
-        {pageButtons[currentPage - 1]}
-        {pageButtons[currentPage]}
-        <button className="btn page-btn">...</button>
-        {pageButtons[pageButtons.length - 1]} */}
-        {/* {numOfPages < 5 && pageButtons.map((btn) => btn)}
-        {pageButtons.length >= 5 && pageButtons.map((btn, i) => {})} */}
-      </div>
+      <div className="btn-container">{renderPageButton()}</div>
       <button
         className="btn next-btn"
         onClick={(e) => {
